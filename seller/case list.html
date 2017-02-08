@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Case List</title>
+  <link rel="stylesheet" href="../static/stylesheets/ace.min.css" class="ace-main-stylesheet" id="main-ace-style">
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../bower_components/stylesheets/sass/common-stylesheet.css">
+  <link rel="stylesheet" href="../bower_components/stylesheets/sass/market-stylesheet.css">
+  <link rel="stylesheet" href="../bower_components/stylesheets/sass/profile-stylesheet.css">
+  <link rel="stylesheet" href="../bower_components/stylesheets/font-awesome-4.6.3/css/font-awesome.min.css">
+
+  <script type="text/javascript" src="../static/bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../static/bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="../static/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <style>
+    .nowrap-ellipis-line{
+      white-space: nowrap;
+      overflow: hidden;
+      -ms-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+    }
+    .center-flex{
+      display: flex;
+      align-items:center;
+    }
+    .case-list-group{
+      width: 1000px;
+      margin: auto;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      min-height: 100px;
+    }
+
+  </style>
+</head>
+<body>
+<div id="navbar" class="navbar clearfix navbar-dark">
+  <div class="comp pull-left nav-logo">
+    <a href="/"><i class="icon-nyis-logo"></i></a>
+  </div>
+  <div class="comp pull-right">
+    {empty name="nickname"}
+    <button class="btn btn-sm btn-hdr" data-toggle="modal" data-target="#loginModal">登录</button>
+    {/empty}
+    <a href="/?lang=en-us" class="btn btn-lang btn-hdr">EN</a>
+  </div>
+  <div class="comp pull-right">
+    <a class="btn btn-link" href="http://ask.nyis.com">小纽问答</a>
+  </div>
+  <div class="comp pull-right">
+    <a class="btn btn-link" href="http://market.nyis.com">服务商城</a>
+  </div>
+</div>
+<div class="profile-header">
+  <div class="container">
+    <div class="profile-photo">
+      <img src="/static/images/profile-07.png">
+    </div>
+    <div class="caption">
+      {$Think.lang.view_my_account}
+    </div>
+    <a href="/seller/profile">
+      <div class="pull-right icon-container">
+        <div class="icon-lg">
+          <i class="icon-profile-icon"></i>
+        </div>
+        <h6>{$Think.lang.view_my_info}</h6>
+      </div>
+    </a>
+    <a href="/seller/mycases">
+      <div class="pull-right icon-container active">
+        <div class="icon-lg">
+          <i class="icon-case-folder"></i>
+        </div>
+        <h6>my cases</h6>
+      </div>
+    </a>
+    <a href="/seller/myservice">
+      <div class="pull-right icon-container">
+        <div class="icon-lg">
+          <i class="icon-case-folder"></i>
+        </div>
+        <h6>{$Think.lang.view_my_service}</h6>
+      </div>
+    </a>
+    <a href="/seller/addservice">
+      <div class="pull-right icon-container">
+        <div class="icon-lg">
+          <i class="icon-add-new-document"></i>
+        </div>
+        <h6>{$Think.lang.view_add_service}</h6>
+      </div>
+    </a>
+    {eq name='Think.session.level' value='9'}
+    <a href="/seller/approve">
+      <div class="pull-right icon-container">
+        <div class="icon-lg">
+          <i class="icon-case-folder"></i>
+        </div>
+        <h6>{$Think.lang.view_approve_service}</h6>
+      </div>
+    </a>
+    {/eq}
+
+  </div>
+</div>
+<div class="container">
+<ul class="list-group case-list-group">
+  <li class="list-group-item">
+    <div class="row center-flex">
+      <div class="col-sm-6 nowrap-ellipis-line">服务名称adfadfasdasdfasdfffffffffffffffffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+      <div class="col-sm-3 nowrap-ellipis-line">用户名称asdfadfadsfadfadsfasdfasfadfsadfasfdasdfadsf</div>
+      <div class="col-sm-2">$1,500</div>
+      <div class="col-sm-1"><button class="btn btn-default">view</button> </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row center-flex">
+      <div class="col-sm-6 nowrap-ellipis-line">服务名称adfadfasdasdfasdfffffffffffffffffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+      <div class="col-sm-3 nowrap-ellipis-line">用户名称asdfadfadsfadfadsfasdfasfadfsadfasfdasdfadsf</div>
+      <div class="col-sm-2">$1,500</div>
+      <div class="col-sm-1"><button class="btn btn-default">view</button> </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row center-flex">
+      <div class="col-sm-6 nowrap-ellipis-line">服务名称adfadfasdasdfasdfffffffffffffffffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+      <div class="col-sm-3 nowrap-ellipis-line">用户名称asdfadfadsfadfadsfasdfasfadfsadfasfdasdfadsf</div>
+      <div class="col-sm-2">$1,500</div>
+      <div class="col-sm-1"><button class="btn btn-default">view</button> </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row center-flex">
+      <div class="col-sm-6 nowrap-ellipis-line">服务名称adfadfasdasdfasdfffffffffffffffffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+      <div class="col-sm-3 nowrap-ellipis-line">用户名称asdfadfadsfadfadsfasdfasfadfsadfasfdasdfadsf</div>
+      <div class="col-sm-2">$1,500</div>
+      <div class="col-sm-1"><button class="btn btn-default">view</button> </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row center-flex">
+      <div class="col-sm-6 nowrap-ellipis-line">服务名称adfadfasdasdfasdfffffffffffffffffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+      <div class="col-sm-3 nowrap-ellipis-line">用户名称asdfadfadsfadfadsfasdfasfadfsadfasfdasdfadsf</div>
+      <div class="col-sm-2">$1,500</div>
+      <div class="col-sm-1"><button class="btn btn-default">view</button> </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row center-flex">
+      <div class="col-sm-6 nowrap-ellipis-line">服务名称adfadfasdasdfasdfffffffffffffffffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+      <div class="col-sm-3 nowrap-ellipis-line">用户名称asdfadfadsfadfadsfasdfasfadfsadfasfdasdfadsf</div>
+      <div class="col-sm-2">$1,500</div>
+      <div class="col-sm-1"><button class="btn btn-default">view</button> </div>
+    </div>
+  </li>
+</ul>
+</div>
+<footer id="footer">
+  <div class="simplified-ft">
+    <div class="container">
+      <span><a href="/FQA">常见问题</a></span>
+      <span><a href="/contactus">联系我们</a></span>
+      <span><a href="/agreement">服务条款</a></span>
+    </div>
+  </div>
+  <div class="primary-ft">
+    <div class="container">
+      <div class="ft-copyright-row">
+        <div class="pull-left">&copy; 2016, NYIS Inc</div>
+        <div class="pull-left">All Rights Reserved</div>
+        <div class="pull-right">+1(800)685-NYIS(6947)</div>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

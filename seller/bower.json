@@ -1,0 +1,21 @@
+{
+  "name": "seller",
+  "authors": [
+    "shaochenlu <slu@nyis.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "velocity": "^1.4.1",
+    "jquery": "^3.1.1"
+  }
+}

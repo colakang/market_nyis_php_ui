@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/velocity/velocity.min.js"></script>
+  <style>
+    #animate{
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    #animate-button{
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+<div id="animate" style="width: 40px;height: 40px; background-color: #3f8cbc"></div>
+<button id="animate-button">Animate!</button>
+<script>
+  var slide = function() {
+    $("#animate").velocity({
+      top: 80,
+      left: 80
+    }, {
+      duration: 1300,
+      easing: "swing"
+    }).velocity({
+      top: 10,
+      left: 10
+    }, {
+      duration: 1300,
+      easing: "swing"
+    });
+  };
+  document.getElementById("animate-button").addEventListener('click', slide);
+</script>
+</body>
+</html>
