@@ -97,7 +97,7 @@ class MessageBoard extends React.Component {
     const {caseid} = this.props;
     const {message, messageList} = this.state;
     return (
-      <div style={{width: "480px", margin: "auto"}}>
+      <div style={{width: "50%", padding: "0 15px", display: "inline-block"}}>
         <Pager zDepth={0}>
           <h3>留言版</h3>
           <div style={{maxHeight: "800px", overflow: "auto", padding: "0 20px"}} ref={(list) => this.messageListDOM = list}>

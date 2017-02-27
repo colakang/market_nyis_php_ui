@@ -8,6 +8,16 @@ import * as dateUtil from '../utils/dateUtil';
 import MessageBoard from './MessageBoard.react';
 
 //case status will be mapped to inspect, accept, uncommented, commented
+let FileList = ({fileList}) => {
+  return (
+    <div style={{width: "50%", padding: "0 15px", display: "inline-block"}}>
+      <h4 style={{margin: "0 0 20px 20px"}}>文件列表</h4>
+      <ul>
+      {fileList.map((f, i) => <li style={{margin: "0 0 20px 20px", color: "#3f8cbc"}} key={i}><a href={`/download?fileid=${f.fileid}`} target="_blank">文件{i + 1}</a></li>)}
+      </ul>
+    </div>
+  );
+};
 
 let CaseDetailTable = ({caseData}) => {
   return (
@@ -337,8 +347,12 @@ export default class CaseDetail extends Component {
       );
     }
     let showMsgb = false;
+    let showFileList = false;
     if(caseData.status == "inspect" || caseData.status == "accept")
       showMsgb = true;
+    if(caseData.status == "accept")
+      showFileList = true;
+    let additionMsgBlock = showMsgb || showFileList;
     return (
       <div className="container">
         <div className="sm-top-bottom-space">
@@ -363,7 +377,10 @@ export default class CaseDetail extends Component {
               />
             </div>
           </div>
-          {showMsgb && <div className="case-detail-block with-divider"><MessageBoard caseid={caseData.id}/></div> }
+          {additionMsgBlock && <div className="case-detail-block with-divider" style={{display: "flex", alignItems: "flex-start"}}>
+            {showMsgb && <MessageBoard caseid={caseData.id}/>}
+            {showFileList && <FileList fileList={caseData.fileList}/>}
+            </div> }
           <QuestionnaireInfo
             fullname={checklist.BasicInfo.fullName}
             dob={checklist.BasicInfo.dob}

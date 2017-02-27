@@ -6,10 +6,10 @@ import ReactDOM from 'react-dom';
 import QuestionnaireApp from './questionnaire/QuestionnaireApp.react';
 import 'jquery';
 
-let showQuestionnaire = (caseId, sellerId, serviceName, sellerName) => {
+let showQuestionnaire = (caseId, sellerId, serviceName, sellerName, refNo) => {
   ReactDOM.render(
     <QuestionnaireApp
-      caseId={caseId} sellerId={sellerId}
+      caseId={caseId} sellerId={sellerId} refNo={refNo}
       serviceName={serviceName} sellerName={sellerName}
     />,
     document.getElementById("root"));
@@ -22,6 +22,7 @@ $('#apply-service').click(() => {
   let sellerId = "";
   let serviceName = "";
   let sellerName = "";
+  let refNo = "";
   let tokenizeUrl = window.location.href.split("/");
   let serviceId = tokenizeUrl[tokenizeUrl.length - 1];
   if ($('#account-comp').length > 0) {
@@ -38,11 +39,12 @@ $('#apply-service').click(() => {
         sellerId = data.sellerid;
         serviceName = data.serviceName;
         sellerName = data.sellerName;
-        showQuestionnaire(caseId, sellerId, serviceName, sellerName);
+        refNo = data.refNo;
+        showQuestionnaire(caseId, sellerId, serviceName, sellerName, refNo);
       });
     }
     else
-      showQuestionnaire(caseId, sellerId, serviceName, sellerName);
+      showQuestionnaire(caseId, sellerId, serviceName, sellerName, refNo);
   }
   else {
     $('.login-warning').css('display', 'block');

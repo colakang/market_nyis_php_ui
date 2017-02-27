@@ -22,7 +22,7 @@ export default class QuestionnaireApp extends React.Component {
         serviceName={this.props.serviceName} sellerName={this.props.sellerName}
       />;
     else
-      return <FinishPage/>;
+      return <FinishPage refNo={this.props.refNo}/>;
   }
 }
 
@@ -33,7 +33,7 @@ let FinishPage = (props) => {
       <div className="success-flag-icon">
         <img src="/static/images/success-flag.png"/>
       </div>
-      <h4>您的申请识别码是<span style={{color: "#FC7777"}}>{props.serviceCode || "XXXXXXXXX"}</span></h4>
+      <h4>您的申请识别码是<span style={{color: "#FC7777"}}>{props.refNo|| "XXXXXXXXX"}</span></h4>
       <h4>您可以:</h4>
       <div className="operation-div">
         <button
