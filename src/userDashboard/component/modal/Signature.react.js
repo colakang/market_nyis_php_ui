@@ -40,10 +40,12 @@ class SignatureModal extends React.Component{
     let {id, fileList, uid} = this.props;
 
     let {agreement, fullName, showError} = this.state;
-    console.log(fileList);
-    console.log(agreement);
+    console.log("file list: ", fileList);
+    console.log("agreement: ", agreement);
     let fileid = "";
-    if(!fileList || fileList.length != 0){
+    if(!fileList)
+      fileList = [];
+    if(fileList.length !== 0){
       fileid = fileList[0].fileid
     }
     return (
@@ -56,9 +58,9 @@ class SignatureModal extends React.Component{
             fontSize: "25px"
           }} onClick={() => closeModal()}>×</div>
           <div className="modal-title">您有一份合约等待签署</div>
-          <div className="modal-content">
+          {fileid && (<div className="modal-content">
             <a href={`/download?fileid=${fileid}`} target="_blank"><span className="clickable-text">点击查看合约详情<i className="icon-link-cursor"/></span></a>
-          </div>
+          </div>)}
           <div className="modal-content">
             <div className="input-group-1">
               <label htmlFor="signature-input">签约</label>

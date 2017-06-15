@@ -6,18 +6,102 @@ import * as selections from '../utils/selections';
 import QuestionnaireApp from './questionnaire/QuestionnaireApp.react';
 import * as dateUtil from '../utils/dateUtil';
 import MessageBoard from './MessageBoard.react';
+import Dropzone from 'react-dropzone';
+import RaisedButton from 'material-ui/RaisedButton';
+import { AjaxFileListUpload } from './FileListUpload.react';
 
 //case status will be mapped to inspect, accept, uncommented, commented
-let FileList = ({fileList}) => {
+/*let FileList = ({fileList}) => {
+  let files = null;
+  let handleSubmit = e => {
+
+  };
   return (
     <div style={{width: "50%", padding: "0 15px", display: "inline-block"}}>
       <h4 style={{margin: "0 0 20px 20px"}}>文件列表</h4>
       <ul>
-      {fileList.map((f, i) => <li style={{margin: "0 0 20px 20px", color: "#3f8cbc"}} key={i}><a href={`/download?fileid=${f.fileid}`} target="_blank">文件{i + 1}</a></li>)}
+      {fileList && fileList.map((f, i) => <li style={{margin: "0 0 20px 20px", color: "#3f8cbc"}} key={i}><a href={`/download?fileid=${f.fileid}`} target="_blank">文件{i + 1}</a></li>)}
       </ul>
+      <div>
+        <Dropzone/>
+      </div>
     </div>
   );
-};
+};*/
+
+class FileList extends Component{
+  constructor(){
+    super();
+    this.state = {
+      files: []
+    };
+  }
+
+  handleDrop(acceptedFiles){
+    this.setState({
+      files: acceptedFiles,
+    })
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    const { caseId } = this.props;
+    const { files } = this.state;
+    if(!files || files.length === 0)
+      return;
+    let data = new FormData();
+    data.append('caseid', caseId);
+    data.append('description', "");
+    data.append('file', files[0]);
+    $.ajax({
+      url: 'index/upload',
+      method: 'POST',
+      data,
+
+      cache: false,
+      processData: false,
+      contentType: false,
+    }).done(data => {
+      console.log(data);
+    })
+  }
+
+  render(){
+    let { fileList } = this.props;
+    return (
+      <div style={{width: "50%", padding: "0 15px", display: "inline-block"}}>
+        <h4 style={{margin: "0 0 20px 20px"}}>文件列表</h4>
+        <ul>
+          <li style={{margin: "0 0 20px 20px", color: "#3f8cbc"}}><a href={``} target="_blank"><img src="./asset/image/file-lock.png" width="30px"/>文件</a></li>
+          {fileList && fileList.map((f, i) => <li style={{margin: "0 0 20px 20px", color: "#3f8cbc"}} key={i}><a href={`/download?fileid=${f.fileid}`} target="_blank">文件{i + 1}</a></li>)}
+        </ul>
+        <List>
+          <ListItem
+            leftAvatar={<Avatar icon={<ActionAssignment/>} backgroundColor={blue500}/>}
+            primaryText="Text"
+          />
+        </List>
+        <Dropzone
+          onDrop={acceptedFiles => this.handleDrop(acceptedFiles)}
+          style={{
+            width: "300px",
+            height: "120px",
+            border: "3px dashed #f2f2f2",
+            borderRadius: "6px",
+            color: "#E2E2E2",
+            textAlign: "center",
+            lineHeight: "120px",
+            fontSize: "19px",
+          }}
+        >上传文件</Dropzone>
+        <RaisedButton
+          label="上传" labelColor="#FFFFFF"
+          backgroundColor="#3F8CBC" onClick={e => this.handleSubmit(e)}
+        />
+      </div>
+    );
+  }
+}
 
 let CaseDetailTable = ({caseData}) => {
   return (
@@ -67,7 +151,7 @@ let CaseAction = ({status, id, seller, isCommented, clientName, uid, fileList}) 
           </div>
         );
   }
-  return <div></div>;
+  return <div/>;
 };
 
 let CaseProcessBar = ({status}) => {
@@ -293,26 +377,12 @@ export default class CaseDetail extends Component {
         url: '/mycases?api=v1',
         method: "GET",
       }).done(data => {
-        let caseData = data.map(c => CaseService.normalizeCase(c)).filter(c => c.id == caseID);
+        let caseData = data.map(c => CaseService.normalizeCase(c)).filter(c => c.id === caseID);
         if (caseData[0])
           caseData = caseData[0];
         else
           caseData = null;
-        if (caseData.status == "accept") {
-          $.ajax({
-            url: '/getFileList',
-            method: 'POST',
-            data: {
-              caseid: caseData.id
-            }
-          }).done(data => {
-            caseData.fileList = data;
-            this.setState({caseData});
-          });
-        }
-        else {
-          this.setState({caseData});
-        }
+        this.setState({caseData});
       });
     }
   }
@@ -330,7 +400,8 @@ export default class CaseDetail extends Component {
       return null;
     let {checklist} = caseData;
     //TODO add 所有案件 icon
-    if (caseData.status == "draft") {
+    console.log("case data: ",caseData);
+    if (caseData.status === "draft") {
       let checklist = caseData.checklist || {};
       return (
         <div className="container">
@@ -348,9 +419,9 @@ export default class CaseDetail extends Component {
     }
     let showMsgb = false;
     let showFileList = false;
-    if(caseData.status == "inspect" || caseData.status == "accept")
+    if(caseData.status === "inspect" || caseData.status === "accept")
       showMsgb = true;
-    if(caseData.status == "accept")
+    if(caseData.status === "accept")
       showFileList = true;
     let additionMsgBlock = showMsgb || showFileList;
     return (
@@ -379,7 +450,7 @@ export default class CaseDetail extends Component {
           </div>
           {additionMsgBlock && <div className="case-detail-block with-divider" style={{display: "flex", alignItems: "flex-start"}}>
             {showMsgb && <MessageBoard caseid={caseData.id}/>}
-            {showFileList && <FileList fileList={caseData.fileList}/>}
+            {showFileList && <div style={{width: "50%", padding: "0 15px"}}><AjaxFileListUpload caseid={caseData.id}/></div>}
             </div> }
           <QuestionnaireInfo
             fullname={checklist.BasicInfo.fullName}

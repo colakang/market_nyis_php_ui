@@ -1,0 +1,9 @@
+.file-list-upload-card{
+  width: 350px;
+  display: inline-block;
+  text-align: center;
+}
+
+.file-list-wrapper {
+  text-align: left;
+}

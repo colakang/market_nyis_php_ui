@@ -63,7 +63,7 @@ class MessageBoard extends React.Component {
 
   handleSubmit(caseid, e) {
     let {message} = this.state;
-    if (ENV == "dev") {
+    if (ENV === "dev") {
       console.log(message);
     }
     else {
